@@ -512,7 +512,7 @@
                 </div>
 
                 <div class="image-container">
-                    <img src="figures/pca_clusters.png" alt="PCA Clustering Visualization showing three distinct city clusters" style="max-width: 800px;" data-description="This PCA scatter plot demonstrates the K-means clustering results, showing three distinct clusters of cities based on urban development patterns. The principal components capture 72% variance, revealing clear separation between different city archetypes: rapid growth cities, stable urban centers, and emerging cities. The clustering achieved a silhouette score of 0.72, indicating excellent separation quality.">
+                    <img src="../figures/pca_clusters.png" alt="PCA Clustering Visualization showing three distinct city clusters" style="max-width: 800px;" data-description="This PCA scatter plot demonstrates the K-means clustering results, showing three distinct clusters of cities based on urban development patterns. The principal components capture 72% variance, revealing clear separation between different city archetypes: rapid growth cities, stable urban centers, and emerging cities. The clustering achieved a silhouette score of 0.72, indicating excellent separation quality.">
                     <div class="image-caption">Figure: K-Means clustering results visualized using PCA dimensionality reduction</div>
                 </div>
             </div>
@@ -543,7 +543,7 @@
                 </div>
 
                 <div class="image-container">
-                    <img src="figures/feature_means_by_cluster.png" alt="Bar chart comparing average feature values across three city clusters" style="max-width: 900px;" data-description="This bar chart displays the mean values for each urban development feature across the three identified clusters. Cluster 0 shows the highest urbanization rates and population growth, representing rapidly expanding cities that may require focused infrastructure investment. Cluster 1 represents stable urban centers with moderate development metrics, while Cluster 2 shows emerging cities with lower development indicators that may need different support strategies. The clear differentiation in feature means validates the clustering quality and provides actionable urban planning guidance.">
+                    <img src="../figures/feature_means_by_cluster.png" alt="Bar chart comparing average feature values across three city clusters" style="max-width: 900px;" data-description="This bar chart displays the mean values for each urban development feature across the three identified clusters. Cluster 0 shows the highest urbanization rates and population growth, representing rapidly expanding cities that may require focused infrastructure investment. Cluster 1 represents stable urban centers with moderate development metrics, while Cluster 2 shows emerging cities with lower development indicators that may need different support strategies. The clear differentiation in feature means validates the clustering quality and provides actionable urban planning guidance.">
                     <div class="image-caption">Figure: Feature means comparison across identified clusters</div>
                 </div>
             </div>
@@ -555,17 +555,17 @@
                 <h2>📊 Visual Analysis</h2>
 
                 <div class="image-container">
-                    <img src="figures/histograms.png" alt="Grid of histograms showing frequency distributions of urban development features" style="max-width: 1000px;" data-description="This histogram grid shows the frequency distributions for each urban development feature used in the analysis. Each histogram reveals the range and concentration of values across all cities, helping identify normal distributions, skewness, and outliers. Key urban indicators like population growth rates, urbanization levels, and infrastructure metrics are visualized to understand the spread and characteristics of the data before clustering.">
+                    <img src="../figures/histograms.png" alt="Grid of histograms showing frequency distributions of urban development features" style="max-width: 1000px;" data-description="This histogram grid shows the frequency distributions for each urban development feature used in the analysis. Each histogram reveals the range and concentration of values across all cities, helping identify normal distributions, skewness, and outliers. Key urban indicators like population growth rates, urbanization levels, and infrastructure metrics are visualized to understand the spread and characteristics of the data before clustering.">
                     <div class="image-caption">Figure: Distribution of key urban development indicators</div>
                 </div>
 
                 <div class="image-container">
-                    <img src="figures/correlation_heatmap.png" alt="Color-coded correlation matrix heatmap of feature relationships" style="max-width: 800px;" data-description="This correlation heatmap displays the pairwise relationships between all urban development features, using color intensity to show correlation strength from -1 to +1. Lighter colors indicate positive correlations while darker colors show negative correlations. Understanding these relationships helps validate feature selection and reveals redundant variables that could affect clustering performance. Strong correlations might necessitate feature reduction techniques like PCA.">
+                    <img src="../figures/correlation_heatmap.png" alt="Color-coded correlation matrix heatmap of feature relationships" style="max-width: 800px;" data-description="This correlation heatmap displays the pairwise relationships between all urban development features, using color intensity to show correlation strength from -1 to +1. Lighter colors indicate positive correlations while darker colors show negative correlations. Understanding these relationships helps validate feature selection and reveals redundant variables that could affect clustering performance. Strong correlations might necessitate feature reduction techniques like PCA.">
                     <div class="image-caption">Figure: Correlation analysis between urban development indicators</div>
                 </div>
 
                 <div class="image-container">
-                    <img src="figures/scatter_matrix.png" alt="Grid of scatter plots showing bivariate relationships between features" style="max-width: 900px;" data-description="This scatter matrix provides a comprehensive view of bivariate relationships between every pair of urban development features. Each off-diagonal plot shows how two variables relate, revealing linear patterns, clusters, or outliers that inform the machine learning approach. The diagonal elements show the distribution of each individual feature. This visualization is crucial for understanding multicollinearity and feature interactions that impact clustering algorithms.">
+                    <img src="../figures/scatter_matrix.png" alt="Grid of scatter plots showing bivariate relationships between features" style="max-width: 900px;" data-description="This scatter matrix provides a comprehensive view of bivariate relationships between every pair of urban development features. Each off-diagonal plot shows how two variables relate, revealing linear patterns, clusters, or outliers that inform the machine learning approach. The diagonal elements show the distribution of each individual feature. This visualization is crucial for understanding multicollinearity and feature interactions that impact clustering algorithms.">
                     <div class="image-caption">Figure: Scatter matrix showing relationships between key features</div>
                 </div>
             </div>
@@ -582,7 +582,7 @@
 
                 <div class="image-container">
                     <div class="video-container">
-                        <iframe src="figures/plotly_pca_clusters.html" frameborder="0" allowfullscreen data-description="This interactive 3D visualization provides a rotatable view of all cities plotted in reduced-dimensional space using three principal components. Each dot represents a city colored by its cluster assignment, allowing exploration of geographic relationships between different urban archetypes. Hovering over points reveals specific city names, population figures, and cluster details, enabling detailed geographic analysis and pattern recognition across continents and development stages."></iframe>
+                        <iframe src="../figures/plotly_pca_clusters.html" frameborder="0" allowfullscreen data-description="This interactive 3D visualization provides a rotatable view of all cities plotted in reduced-dimensional space using three principal components. Each dot represents a city colored by its cluster assignment, allowing exploration of geographic relationships between different urban archetypes. Hovering over points reveals specific city names, population figures, and cluster details, enabling detailed geographic analysis and pattern recognition across continents and development stages."></iframe>
                     </div>
                     <div class="image-caption">Interactive: 3D PCA clustering visualization with hover details</div>
                 </div>
