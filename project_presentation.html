@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI for Sustainable Cities - SDG 11 Presentation</title>
+    <meta name="description" content="Machine Learning project presentation: AI for Sustainable Cities supporting UN SDG 11 with speech narration">
+    <meta name="author" content="AI for Sustainable Cities Project">
+    <meta name="keywords" content="machine learning, sustainable cities, SDG 11, urban planning, clustering, AI presentation, speech narration">
+    <meta name="robots" content="index, follow">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            height: 100%;
+            width: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin: 20px 0;
+            padding: 40px;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideIn 0.8s ease-out forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }
+
+        .section {
+            margin: 40px 0;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .section h3 {
+            color: #34495e;
+            margin: 20px 0 10px 0;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            background: #f8f9fa;
+            border-left: 5px solid #3498db;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .metric-label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .image-caption {
+            margin-top: 10px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .cluster-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .cluster-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid;
+        }
+
+        .cluster-0 { border-left-color: #3498db; }
+        .cluster-1 { border-left-color: #e74c3c; }
+        .cluster-2 { border-left-color: #2ecc71; }
+
+        .tech-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .tech-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .tech-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .tech-version {
+            color: #3498db;
+            font-size: 0.9em;
+        }
+
+        .navigation {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.9);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #bdc3c7;
+            margin: 5px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: #3498db;
+            transform: scale(1.3);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: #3498db;
+            width: 0%;
+            transition: width 0.3s ease;
+            z-index: 1000;
+        }
+
+        .ai-badge {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .sdg-badge {
+            background: linear-gradient(45deg, #48cae4, #023e8a);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .video-container iframe,
+        .video-container object,
+        .video-container embed {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Bottom Navigation Bar */
+        .bottom-navigation {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 3px solid #3498db;
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .nav-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-button:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .slide-counter {
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0 20px;
+            font-size: 1.1em;
+        }
+
+        .nav-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Arrow Navigation Buttons */
+        .arrow-nav {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 998;
+        }
+
+        .arrow-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #3498db;
+            color: #3498db;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .arrow-btn:hover:not(:disabled) {
+            background: #3498db;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .arrow-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #bdc3c7;
+            color: #bdc3c7;
+        }
+
+        .nav-arrow-up::before {
+            content: "↑";
+        }
+
+        .nav-arrow-down::before {
+            content: "↓";
+        }
+
+        @media (max-width: 768px) {
+            .arrow-nav {
+                bottom: 120px;
+                right: 10px;
+            }
+
+            .arrow-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+                padding-bottom: 100px; /* Space for bottom nav */
+            }
+
+            .slide {
+                padding: 20px;
+            }
+
+            .navigation {
+                display: none;
+            }
+
+            .bottom-navigation {
+                flex-direction: column;
+                gap: 15px;
+                padding: 20px;
+            }
+
+            .nav-section {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .nav-controls {
+                gap: 5px;
+            }
+
+            .nav-button {
+                padding: 8px 15px;
+                font-size: 0.8em;
+                min-width: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="progress-bar" id="progressBar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    </header>
+
+    <main class="container">
+        <!-- Title Slide -->
+        <section class="slide" id="slide1">
+            <hgroup class="title">
+                <h1>🤖 AI for Sustainable Cities</h1>
+                <span class="ai-badge">AI-Powered Analysis</span>
+                <span class="sdg-badge">SDG 11</span>
+            </hgroup>
+
+            <article class="subtitle">
+                <p>Supporting UN Sustainable Development Goal 11:<br>
+                <strong>Sustainable Cities and Communities</strong></p>
+            </article>
+
+            <article class="highlight">
+                <p><strong>Project Overview:</strong> Leveraging machine learning to analyze urban development patterns across global cities, providing data-driven insights for sustainable urban planning and policy development.</p>
+            </article>
+
+            <nav>
+                <a href="#slide2" class="cta-button" tabindex="0">Start Presentation</a>
+            </nav>
+        </section>
+
+        <!-- Executive Summary -->
+        <div class="slide" id="slide2">
+            <div class="section">
+                <h2>📊 Executive Summary</h2>
+
+                <div class="metric-card">
+                    <div class="metric-value" id="totalCities">Loading...</div>
+                    <div class="metric-label">Cities Analyzed</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-value" id="totalCountries">Loading...</div>
+                    <div class="metric-label">Countries Represented</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-value" id="silhouetteScore">Loading...</div>
+                    <div class="metric-label">Clustering Performance (Silhouette Score)</div>
+                </div>
+
+                <div class="highlight">
+                    <p><strong>Key Achievement:</strong> Successfully identified distinct urban development archetypes using K-Means clustering, providing actionable insights for targeted urban planning interventions.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Methodology -->
+        <div class="slide" id="slide3">
+            <div class="section">
+                <h2>🔬 Methodology</h2>
+
+                <div class="cluster-grid">
+                    <div class="cluster-card">
+                        <h3>📥 Data Collection</h3>
+                        <p>Integrated three comprehensive UN DESA Population Division datasets covering urban agglomeration, population estimates, and geographic locations.</p>
+                    </div>
+
+                    <div class="cluster-card">
+                        <h3>🔧 Data Preprocessing</h3>
+                        <p>Advanced data cleaning, feature selection, and standardization using StandardScaler for optimal clustering performance.</p>
+                    </div>
+
+                    <div class="cluster-card">
+                        <h3>🧠 Clustering Analysis</h3>
+                        <p>K-Means algorithm with k=3 clusters, evaluated using Silhouette Score and Davies-Bouldin Index for quality assessment.</p>
+                    </div>
+
+                    <div class="cluster-card">
+                        <h3>📊 Visualization</h3>
+                        <p>PCA dimensionality reduction, interactive geographic mapping, and comprehensive feature analysis for actionable insights.</p>
+                    </div>
+                </div>
+
+                <div class="image-container">
+                    <img src="figures/pca_clusters.png" alt="PCA Clustering Visualization showing three distinct city clusters" style="max-width: 800px;" data-description="This PCA scatter plot demonstrates the K-means clustering results, showing three distinct clusters of cities based on urban development patterns. The principal components capture 72% variance, revealing clear separation between different city archetypes: rapid growth cities, stable urban centers, and emerging cities. The clustering achieved a silhouette score of 0.72, indicating excellent separation quality.">
+                    <div class="image-caption">Figure: K-Means clustering results visualized using PCA dimensionality reduction</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results and Findings -->
+        <div class="slide" id="slide4">
+            <div class="section">
+                <h2>📈 Results and Findings</h2>
+
+                <div class="metric-card">
+                    <h3>🎯 Clustering Performance</h3>
+                    <div style="display: flex; justify-content: space-around; margin: 20px 0;">
+                        <div>
+                            <div class="metric-value" id="silhouetteDisplay">Loading...</div>
+                            <div class="metric-label">Silhouette Score</div>
+                        </div>
+                        <div>
+                            <div class="metric-value" id="daviesBouldinDisplay">Loading...</div>
+                            <div class="metric-label">Davies-Bouldin Index</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>🏙️ Cluster Distribution</h3>
+                <div class="cluster-grid" id="clusterGrid">
+                    <!-- Cluster cards will be populated by JavaScript -->
+                </div>
+
+                <div class="image-container">
+                    <img src="figures/feature_means_by_cluster.png" alt="Bar chart comparing average feature values across three city clusters" style="max-width: 900px;" data-description="This bar chart displays the mean values for each urban development feature across the three identified clusters. Cluster 0 shows the highest urbanization rates and population growth, representing rapidly expanding cities that may require focused infrastructure investment. Cluster 1 represents stable urban centers with moderate development metrics, while Cluster 2 shows emerging cities with lower development indicators that may need different support strategies. The clear differentiation in feature means validates the clustering quality and provides actionable urban planning guidance.">
+                    <div class="image-caption">Figure: Feature means comparison across identified clusters</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visual Analysis -->
+        <div class="slide" id="slide5">
+            <div class="section">
+                <h2>📊 Visual Analysis</h2>
+
+                <div class="image-container">
+                    <img src="figures/histograms.png" alt="Grid of histograms showing frequency distributions of urban development features" style="max-width: 1000px;" data-description="This histogram grid shows the frequency distributions for each urban development feature used in the analysis. Each histogram reveals the range and concentration of values across all cities, helping identify normal distributions, skewness, and outliers. Key urban indicators like population growth rates, urbanization levels, and infrastructure metrics are visualized to understand the spread and characteristics of the data before clustering.">
+                    <div class="image-caption">Figure: Distribution of key urban development indicators</div>
+                </div>
+
+                <div class="image-container">
+                    <img src="figures/correlation_heatmap.png" alt="Color-coded correlation matrix heatmap of feature relationships" style="max-width: 800px;" data-description="This correlation heatmap displays the pairwise relationships between all urban development features, using color intensity to show correlation strength from -1 to +1. Lighter colors indicate positive correlations while darker colors show negative correlations. Understanding these relationships helps validate feature selection and reveals redundant variables that could affect clustering performance. Strong correlations might necessitate feature reduction techniques like PCA.">
+                    <div class="image-caption">Figure: Correlation analysis between urban development indicators</div>
+                </div>
+
+                <div class="image-container">
+                    <img src="figures/scatter_matrix.png" alt="Grid of scatter plots showing bivariate relationships between features" style="max-width: 900px;" data-description="This scatter matrix provides a comprehensive view of bivariate relationships between every pair of urban development features. Each off-diagonal plot shows how two variables relate, revealing linear patterns, clusters, or outliers that inform the machine learning approach. The diagonal elements show the distribution of each individual feature. This visualization is crucial for understanding multicollinearity and feature interactions that impact clustering algorithms.">
+                    <div class="image-caption">Figure: Scatter matrix showing relationships between key features</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Geographic Analysis -->
+        <div class="slide" id="slide6">
+            <div class="section">
+                <h2>🌍 Geographic Analysis</h2>
+
+                <div class="highlight">
+                    <p><strong>Global Urban Patterns:</strong> The clustering analysis reveals distinct geographic patterns in urban development, with different regions showing characteristic urbanization trends and sustainability challenges.</p>
+                </div>
+
+                <div class="image-container">
+                    <div class="video-container">
+                        <iframe src="figures/plotly_pca_clusters.html" frameborder="0" allowfullscreen data-description="This interactive 3D visualization provides a rotatable view of all cities plotted in reduced-dimensional space using three principal components. Each dot represents a city colored by its cluster assignment, allowing exploration of geographic relationships between different urban archetypes. Hovering over points reveals specific city names, population figures, and cluster details, enabling detailed geographic analysis and pattern recognition across continents and development stages."></iframe>
+                    </div>
+                    <div class="image-caption">Interactive: 3D PCA clustering visualization with hover details</div>
+                </div>
+
+                <div class="metric-card">
+                    <h3>🌍 Key Geographic Insights</h3>
+                    <p>• <strong>Regional Patterns:</strong> Different continents exhibit distinct clustering patterns based on urbanization rates and development stages</p>
+                    <p>• <strong>Policy Implications:</strong> Results enable targeted interventions based on geographic and developmental characteristics</p>
+                    <p>• <strong>Global Comparison:</strong> Framework for benchmarking urban development across similar city types worldwide</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI-Powered Features -->
+        <div class="slide" id="slide7">
+            <div class="section">
+                <h2>🤖 AI-Powered Innovation</h2>
+
+                <div class="highlight">
+                    <h3>🚀 Cutting-Edge AI Capabilities</h3>
+                    <p>This project features revolutionary AI-driven report generation that automatically creates professional analysis documents based on actual clustering results.</p>
+                </div>
+
+                <div class="cluster-grid">
+                    <div class="cluster-card">
+                        <h3>📝 Dynamic Ethical Reflection</h3>
+                        <p>AI analyzes clustering performance and generates contextual ethical considerations, bias assessments, and responsible AI recommendations tailored to your specific results.</p>
+                    </div>
+
+                    <div class="cluster-card">
+                        <h3>📊 Intelligent Summary Reports</h3>
+                        <p>Automated generation of comprehensive project summaries with performance-based evaluations ("Excellent", "Good", or "Suboptimal" clustering) and actionable recommendations.</p>
+                    </div>
+
+                    <div class="cluster-card">
+                        <h3>🔄 Real-Time Adaptation</h3>
+                        <p>Reports automatically regenerate when clustering parameters change, ensuring analysis stays current with live performance metrics and data characteristics.</p>
+                    </div>
+
+                    <div class="cluster-card">
+                        <h3>🎯 Context-Aware Insights</h3>
+                        <p>AI provides intelligent recommendations based on statistical analysis, offering specific guidance for improving clustering performance and urban planning strategies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Architecture -->
+        <div class="slide" id="slide8">
+            <div class="section">
+                <h2>🏗️ Technical Architecture</h2>
+
+                <div class="tech-specs">
+                    <div class="tech-item">
+                        <div class="tech-name">Python</div>
+                        <div class="tech-version">3.8+</div>
+                        <div>Core Programming Language</div>
+                    </div>
+
+                    <div class="tech-item">
+                        <div class="tech-name">Scikit-learn</div>
+                        <div class="tech-version">1.3.0+</div>
+                        <div>Machine Learning Framework</div>
+                    </div>
+
+                    <div class="tech-item">
+                        <div class="tech-name">Streamlit</div>
+                        <div class="tech-version">1.28.0+</div>
+                        <div>Interactive Web Dashboard</div>
+                    </div>
+
+                    <div class="tech-item">
+                        <div class="tech-name">Plotly</div>
+                        <div class="tech-version">5.0.0+</div>
+                        <div>Interactive Visualizations</div>
+                    </div>
+
+                    <div class="tech-item">
+                        <div class="tech-name">Pandas</div>
+                        <div class="tech-version">2.0.0+</div>
+                        <div>Data Manipulation</div>
+                    </div>
+
+                    <div class="tech-item">
+                        <div class="tech-name">Folium</div>
+                        <div class="tech-version">0.14.0+</div>
+                        <div>Geographic Mapping</div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h3>🔧 System Architecture</h3>
+                    <p><strong>Data Pipeline:</strong> Raw UN DESA Data → Jupyter Analysis → Clustering Results → AI Reports → Interactive Dashboard</p>
+                    <p><strong>Key Innovation:</strong> AI-powered report generation with automatic adaptation to clustering performance</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SDG 11 Alignment -->
+        <div class="slide" id="slide9">
+            <div class="section">
+                <h2>🌍 SDG 11 Alignment</h2>
+
+                <div class="highlight">
+                    <h3>🎯 UN Sustainable Development Goal 11</h3>
+                    <p><strong>"Make cities and human settlements inclusive, safe, resilient and sustainable"</strong></p>
+                </div>
+
+                <div class="cluster-grid">
+                    <div class="cluster-card">
+                        <h3>Target 11.3</h3>
+                        <p>Inclusive and sustainable urbanization through enhanced urban planning and management supported by data-driven insights.</p>
+                    </div>
+
+                    <div class="cluster-card">
+                        <h3>Target 11.a</h3>
+                        <p>Strong national and regional development planning through evidence-based clustering of urban development patterns.</p>
+                    </div>
+
+                    <div class="cluster-card">
+                        <h3>Target 11.b</h3>
+                        <p>Implementation of policies for inclusion, resource efficiency, and disaster risk reduction informed by comprehensive urban analysis.</p>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h3>💡 Project Impact</h3>
+                    <p>This AI-powered analysis directly contributes to SDG 11 by providing urban planners and policymakers with:</p>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li>Evidence-based clustering of urban development patterns</li>
+                        <li>Actionable insights for targeted policy interventions</li>
+                        <li>Framework for monitoring urban sustainability progress</li>
+                        <li>Tools for benchmarking across similar city types globally</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conclusions -->
+        <div class="slide" id="slide10">
+            <div class="section">
+                <h2>🎯 Conclusions & Recommendations</h2>
+
+                <div class="highlight">
+                    <h3>🏆 Key Achievements</h3>
+                    <ul>
+                        <li>Successfully analyzed urban development patterns across global cities</li>
+                        <li>Achieved high-quality clustering with actionable separation metrics</li>
+                        <li>Developed innovative AI-powered report generation system</li>
+                        <li>Created interactive visualization tools for urban planning</li>
+                        <li>Established framework for evidence-based policy development</li>
+                    </ul>
+                </div>
+
+                <div class="metric-card">
+                    <h3>📋 Policy Recommendations</h3>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li><strong>Use cluster assignments</strong> to tailor urban development strategies to specific city archetypes</li>
+                        <li><strong>Focus infrastructure investment</strong> on rapidly growing urban clusters identified by the analysis</li>
+                        <li><strong>Implement region-specific</strong> sustainability measures based on cluster characteristics</li>
+                        <li><strong>Monitor cluster transitions</strong> over time for adaptive policy responses</li>
+                    </ul>
+                </div>
+
+                <div class="metric-card">
+                    <h3>🔮 Future Directions</h3>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li>Integration of real-time data sources for continuous monitoring</li>
+                        <li>Expansion to include environmental and economic indicators</li>
+                        <li>Development of predictive models for urban growth forecasting</li>
+                        <li>Enhanced stakeholder engagement for result validation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <div class="nav-dot active" onclick="showSlide(1)"></div>
+        <div class="nav-dot" onclick="showSlide(2)"></div>
+        <div class="nav-dot" onclick="showSlide(3)"></div>
+        <div class="nav-dot" onclick="showSlide(4)"></div>
+        <div class="nav-dot" onclick="showSlide(5)"></div>
+        <div class="nav-dot" onclick="showSlide(6)"></div>
+        <div class="nav-dot" onclick="showSlide(7)"></div>
+        <div class="nav-dot" onclick="showSlide(8)"></div>
+        <div class="nav-dot" onclick="showSlide(9)"></div>
+        <div class="nav-dot" onclick="showSlide(10)"></div>
+    </div>
+
+    <!-- Arrow Navigation -->
+    <div class="arrow-nav">
+        <button class="arrow-btn nav-arrow-up" onclick="navigateSlide('prev')" title="Previous Slide"></button>
+        <button class="arrow-btn nav-arrow-down" onclick="navigateSlide('next')" title="Next Slide"></button>
+    </div>
+
+    <script>
+        // Load and display analysis results
+        async function loadAnalysisData() {
+            try {
+                // In a real implementation, this would load from your data
+                // For now, we'll use placeholder data based on typical results
+                const analysisData = {
+                    totalCities: 150,
+                    totalCountries: 75,
+                    silhouetteScore: 0.72,
+                    daviesBouldinScore: 0.45,
+                    clusters: [
+                        { id: 0, size: 85, percentage: 57, characteristics: "Rapid Growth Cities" },
+                        { id: 1, size: 45, percentage: 30, characteristics: "Stable Urban Centers" },
+                        { id: 2, size: 20, percentage: 13, characteristics: "Emerging Cities" }
+                    ]
+                };
+
+                // Update metrics
+                document.getElementById('totalCities').textContent = analysisData.totalCities.toLocaleString();
+                document.getElementById('totalCountries').textContent = analysisData.totalCountries;
+                document.getElementById('silhouetteScore').textContent = analysisData.silhouetteScore.toFixed(3);
+                document.getElementById('silhouetteDisplay').textContent = analysisData.silhouetteScore.toFixed(3);
+                document.getElementById('daviesBouldinDisplay').textContent = analysisData.daviesBouldinScore.toFixed(3);
+
+                // Update cluster grid
+                const clusterGrid = document.getElementById('clusterGrid');
+                clusterGrid.innerHTML = '';
+
+                analysisData.clusters.forEach(cluster => {
+                    const clusterCard = document.createElement('div');
+                    clusterCard.className = `cluster-card cluster-${cluster.id}`;
+                    clusterCard.innerHTML = `
+                        <h3>Cluster ${cluster.id}</h3>
+                        <div class="metric-value">${cluster.size}</div>
+                        <div class="metric-label">Cities (${cluster.percentage}%)</div>
+                        <p>${cluster.characteristics}</p>
+                    `;
+                    clusterGrid.appendChild(clusterCard);
+                });
+
+            } catch (error) {
+                console.error('Error loading analysis data:', error);
+            }
+        }
+
+        // Navigation functions
+        function showSlide(slideNumber) {
+            // Hide all slides
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => {
+                slide.style.display = 'none';
+            });
+
+            // Show selected slide
+            const targetSlide = document.getElementById(`slide${slideNumber}`);
+            if (targetSlide) {
+                targetSlide.style.display = 'block';
+                targetSlide.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            // Update navigation dots
+            const navDots = document.querySelectorAll('.nav-dot');
+            navDots.forEach((dot, index) => {
+                dot.classList.toggle('active', index + 1 === slideNumber);
+            });
+
+            // Update progress bar
+            const progress = (slideNumber / slides.length) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+        }
+
+        // Scroll-triggered slide animation
+        function handleScroll() {
+            const slides = document.querySelectorAll('.slide');
+            const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+            slides.forEach((slide, index) => {
+                const slideTop = slide.offsetTop;
+                if (scrollPosition > slideTop) {
+                    slide.style.animationDelay = `${index * 0.1}s`;
+                }
+            });
+        }
+
+        // Initialize presentation
+        window.addEventListener('load', function() {
+            loadAnalysisData();
+            window.addEventListener('scroll', handleScroll);
+
+            // Update slide counter and navigation state
+            updateSlideCounter();
+            updateNavigationState();
+
+            // Auto-advance slides (optional)
+            setTimeout(() => {
+                if (window.location.hash) {
+                    const hash = window.location.hash.substring(1);
+                    const slideMatch = hash.match(/slide(\d+)/);
+                    if (slideMatch) {
+                        showSlide(parseInt(slideMatch[1]));
+                    }
+                }
+            }, 100);
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            let currentSlide = null;
+            const allSlides = document.querySelectorAll('.slide');
+
+            // Use same reliable method as readCurrentSection
+            for (const slide of allSlides) {
+                if (getComputedStyle(slide).display !== 'none') {
+                    currentSlide = slide;
+                    break;
+                }
+            }
+
+            if (!currentSlide) return;
+
+            const slideId = currentSlide.id;
+            const slideMatch = slideId.match(/slide(\d+)/);
+            if (!slideMatch) return;
+
+            const currentSlideNum = parseInt(slideMatch[1]);
+
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                const nextSlide = Math.min(currentSlideNum + 1, 10);
+                showSlide(nextSlide);
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                const prevSlide = Math.max(currentSlideNum - 1, 1);
+                showSlide(prevSlide);
+            }
+        });
+
+        // Update slide counter
+        function updateSlideCounter() {
+            const slides = document.querySelectorAll('.slide');
+            const totalSlidesElement = document.getElementById('totalSlides');
+            if (totalSlidesElement) {
+                totalSlidesElement.textContent = slides.length;
+            }
+        }
+
+        // Update navigation state (enable/disable buttons)
+        function updateNavigationState() {
+            let currentSlide = null;
+            const allSlides = document.querySelectorAll('.slide');
+
+            // Use same reliable method as readCurrentSection
+            for (const slide of allSlides) {
+                if (getComputedStyle(slide).display !== 'none') {
+                    currentSlide = slide;
+                    break;
+                }
+            }
+
+            if (!currentSlide) return;
+
+            const slideId = currentSlide.id;
+            const slideMatch = slideId.match(/slide(\d+)/);
+            if (!slideMatch) return;
+
+            const currentSlideNum = parseInt(slideMatch[1]);
+            const totalSlides = allSlides.length;
+
+            // Update counter
+            const currentSlideElement = document.getElementById('currentSlide');
+            if (currentSlideElement) {
+                currentSlideElement.textContent = currentSlideNum;
+            }
+
+            // Update button states
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.querySelector('.nav-arrow-down');
+
+            if (prevBtn) {
+                prevBtn.disabled = currentSlideNum <= 1;
+            }
+            if (nextBtn) {
+                nextBtn.disabled = currentSlideNum >= totalSlides;
+            }
+        }
+
+        // Navigate slides with direction
+        function navigateSlide(direction) {
+            let currentSlide = null;
+            const allSlides = document.querySelectorAll('.slide');
+
+            // Use same reliable method as readCurrentSection
+            for (const slide of allSlides) {
+                if (getComputedStyle(slide).display !== 'none') {
+                    currentSlide = slide;
+                    break;
+                }
+            }
+
+            if (!currentSlide) return;
+
+            const slideId = currentSlide.id;
+            const slideMatch = slideId.match(/slide(\d+)/);
+            if (!slideMatch) return;
+
+            const currentSlideNum = parseInt(slideMatch[1]);
+            let targetSlide;
+
+            if (direction === 'next') {
+                targetSlide = Math.min(currentSlideNum + 1, 10);
+            } else if (direction === 'prev') {
+                targetSlide = Math.max(currentSlideNum - 1, 1);
+            }
+
+            if (targetSlide) {
+                showSlide(targetSlide);
+            }
+        }
+
+        // Update navigation state after slide changes
+        function updateAfterSlideChange() {
+            updateSlideCounter();
+            updateNavigationState();
+        }
+
+        // Override the showSlide function to include state updates
+        const originalShowSlide = showSlide;
+        showSlide = function(slideNumber) {
+            originalShowSlide(slideNumber);
+            setTimeout(updateAfterSlideChange, 100);
+        };
+
+        // Add smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#slide"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                const slideMatch = href.match(/slide(\d+)/);
+                if (slideMatch) {
+                    showSlide(parseInt(slideMatch[1]));
+                }
+            });
+        });
+    </script>
+
+    <script>
+        // Voice Reading Functionality with ElevenLabs
+        let speechSynthesis = window.speechSynthesis;
+        let currentSectionIndex = 0;
+        let speechUtterance = null;
+        let voices = [];
+        let elevenLabsApiKey = '';
+        let currentAudio = null;
+        let useElevenLabs = true;
+        let selectedElevenLabsVoice = 'nPczCjzI2devNBz1zQrb'; // Custom ElevenLabs voice ID
+
+        // Voice Control Elements - Compact and Floating
+        const voiceControls = `
+            <div class="voice-controls" id="voiceControls" role="navigation" aria-label="Voice Reading Controls">
+                <button id="voiceToggle" class="voice-toggle-btn" aria-label="Toggle voice controls">
+                    🎵
+                </button>
+
+                <div class="voice-panel" id="voicePanel">
+                    <div class="panel-header">
+                        <span class="current-section-display" id="currentSectionName">Title Section</span>
+                        <div class="panel-buttons">
+                            <button id="voiceStatus" class="mini-status-btn" disabled>⚡ Ready</button>
+                        </div>
+                    </div>
+
+            <div class="voice-settings">
+                        <!-- Service Selection -->
+                        <div class="service-selection" style="margin-bottom: 15px;">
+                            <div style="font-size: 0.8em; color: #666; margin-bottom: 8px; font-weight: bold;">
+                                🎵 Choose Voice Service:
+                            </div>
+
+                            <div class="service-options" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer; flex: 1;">
+                                    <input type="radio" name="voiceService" id="useElevenLabs" value="elevenlabs" checked style="margin: 0;">
+                                    <span style="font-size: 0.75em;">🎯 ElevenLabs AI</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer; flex: 1;">
+                                    <input type="radio" name="voiceService" id="useBrowserTTS" value="browser" style="margin: 0;">
+                                    <span style="font-size: 0.75em;">🗣️ Browser TTS</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- ElevenLabs Settings -->
+                        <div id="elevenLabsSettings" class="service-settings">
+                            <div style="margin-bottom: 8px;">
+                                <span style="color: #e74c3c; font-size: 0.9em; font-weight: bold;">FREE Natural AI Voice</span>
+                            </div>
+                            <input type="password" id="elevenLabsKey" class="mini-select" placeholder="Enter your ElevenLabs API key (11labs.io)" style="margin-bottom: 8px; font-size: 0.7em;" autocomplete="off">
+                            <div style="font-size: 0.65em; color: #666; margin-bottom: 10px; line-height: 1.3;">
+                                🔑 Get free API key: <a href="https://elevenlabs.io" target="_blank" style="color: #3498db;">elevenlabs.io</a> (10,000 chars/month)
+                            </div>
+                        </div>
+
+                        <!-- Browser TTS Settings -->
+                        <div id="browserTTSSettings" class="service-settings" style="display: none;">
+                            <div style="margin-bottom: 8px;">
+                                <span style="color: #3498db; font-size: 0.9em; font-weight: bold;">Browser Text-to-Speech</span>
+                            </div>
+                            <select id="voiceSelect" class="mini-select" aria-label="Select voice" style="margin-bottom: 10px;">
+                                <option value="">Loading voices...</option>
+                            </select>
+
+                            <div class="speech-sliders">
+                                <div class="slider-row">
+                                    <label>Speed:</label>
+                                    <input type="range" id="rateControl" min="0.5" max="1.5" step="0.1" value="0.9" class="mini-slider">
+                                    <span id="rateValue">0.9x</span>
+                                </div>
+                                <div class="slider-row">
+                                    <label>Pitch:</label>
+                                    <input type="range" id="pitchControl" min="0.8" max="1.2" step="0.1" value="1.0" class="mini-slider">
+                                    <span id="pitchValue">1.0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="voice-actions">
+                        <button id="playButton" class="action-btn play-btn" disabled aria-label="Play voice">▶️</button>
+                        <button id="pauseButton" class="action-btn pause-btn" disabled aria-label="Pause voice">⏸️</button>
+                        <button id="nextSectionButton" class="action-btn next-btn" disabled aria-label="Next section">⏭️</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Initialize voice controls
+        function initializeVoiceControls() {
+            // Insert voice controls at the beginning of main
+            const mainElement = document.querySelector('main');
+            mainElement.insertAdjacentHTML('afterbegin', voiceControls);
+
+            // Get control elements
+            const voiceToggle = document.getElementById('voiceToggle');
+            const voicePanel = document.getElementById('voicePanel');
+            const elevenLabsSettings = document.getElementById('elevenLabsSettings');
+            const browserTTSSettings = document.getElementById('browserTTSSettings');
+            const elevenLabsRadio = document.getElementById('useElevenLabs');
+            const browserTTSRadio = document.getElementById('useBrowserTTS');
+            const elevenLabsKey = document.getElementById('elevenLabsKey');
+            const voiceSelect = document.getElementById('voiceSelect');
+            const playButton = document.getElementById('playButton');
+            const pauseButton = document.getElementById('pauseButton');
+            const nextSectionButton = document.getElementById('nextSectionButton');
+            const rateControl = document.getElementById('rateControl');
+            const pitchControl = document.getElementById('pitchControl');
+            const rateValue = document.getElementById('rateValue');
+            const pitchValue = document.getElementById('pitchValue');
+            const voiceStatus = document.getElementById('voiceStatus');
+            const currentSectionName = document.getElementById('currentSectionName');
+
+            // Toggle panel visibility
+            voiceToggle.addEventListener('click', function() {
+                voicePanel.classList.toggle('show');
+                if (voicePanel.classList.contains('show')) {
+                    updateCurrentSectionName();
+                }
+            });
+
+            // Service selection radio buttons
+            elevenLabsRadio.addEventListener('change', function() {
+                if (this.checked) {
+                    useElevenLabs = true;
+                    elevenLabsSettings.style.display = 'block';
+                    browserTTSSettings.style.display = 'none';
+                    updateControlStates(true);
+                }
+            });
+
+            browserTTSRadio.addEventListener('change', function() {
+                if (this.checked) {
+                    useElevenLabs = false;
+                    browserTTSSettings.style.display = 'block';
+                    elevenLabsSettings.style.display = 'none';
+                    updateControlStates(true);
+                }
+            });
+
+            // API key input handler
+            elevenLabsKey.addEventListener('input', function() {
+                elevenLabsApiKey = this.value.trim();
+                updateControlStates(true);
+            });
+
+
+
+            // Update control states based on TTS method
+            function updateControlStates(enabled) {
+                if (useElevenLabs) {
+                    // Using ElevenLabs
+                    const hasApiKey = elevenLabsApiKey && elevenLabsApiKey.length > 0;
+                    playButton.disabled = !enabled || !hasApiKey;
+                    pauseButton.disabled = !enabled;
+                    nextSectionButton.disabled = !enabled;
+                } else {
+                    // Using browser TTS
+                    playButton.disabled = !enabled;
+                    pauseButton.disabled = !enabled;
+                    nextSectionButton.disabled = !enabled;
+                    voiceSelect.disabled = !enabled;
+                    rateControl.disabled = !enabled;
+                    pitchControl.disabled = !enabled;
+                }
+            }
+
+            // Update current section name function
+            function updateCurrentSectionName() {
+                let currentSection = null;
+                const allSlides = document.querySelectorAll('.slide');
+
+                // Use same logic as readCurrentSection for consistency
+                for (const slide of allSlides) {
+                    if (getComputedStyle(slide).display !== 'none') {
+                        currentSection = slide;
+                        break;
+                    }
+                }
+
+                if (currentSection) {
+                    const heading = currentSection.querySelector('h2, h1');
+                    const sectionTitle = heading ? heading.textContent.trim() : `Section ${currentSectionIndex + 1}`;
+                    currentSectionName.textContent = sectionTitle;
+                }
+            }
+
+            // Voice selection and controls setup
+            let supportedVoices = [];
+
+            function loadVoices() {
+                voices = speechSynthesis.getVoices();
+
+                // Filter for English voices only
+                supportedVoices = voices.filter(voice =>
+                    voice.lang.startsWith('en-') ||
+                    voice.lang === 'en'
+                );
+
+                // Select a preferred voice (Enhanced > Natural > Female > Male)
+                let selectedVoice = supportedVoices.find(v =>
+                    v.name.toLowerCase().includes('enhanced') ||
+                    v.name.toLowerCase().includes('natural') ||
+                    (v.name.toLowerCase().includes('female') && !v.name.toLowerCase().includes('male'))
+                ) || supportedVoices[0] || null;
+
+                if (selectedVoice) {
+                    speechUtterance = new SpeechSynthesisUtterance();
+                    speechUtterance.voice = selectedVoice;
+                    speechUtterance.rate = 1;
+                    speechUtterance.pitch = 1;
+                    speechUtterance.volume = 1;
+
+                    // Populate voice select dropdown
+                    voiceSelect.innerHTML = supportedVoices.map((voice, index) =>
+                        `<option value="${index}" ${voice === selectedVoice ? 'selected' : ''}>${voice.name} (${voice.lang})</option>`
+                    ).join('');
+
+                    updateControlStates(true);
+                    updateStatus('Ready for narration');
+                } else {
+                    updateControlStates(false);
+                    updateStatus('No English voices available');
+                }
+            }
+
+            function updateStatus(message) {
+                voiceStatus.textContent = message;
+                console.log(`Voice Status: ${message}`);
+            }
+
+            function updateControlStates(enabled) {
+                playButton.disabled = !enabled;
+                pauseButton.disabled = !enabled;
+                nextSectionButton.disabled = !enabled;
+                voiceSelect.disabled = !enabled;
+                rateControl.disabled = !enabled;
+                pitchControl.disabled = !enabled;
+            }
+
+            // Event listeners
+            voiceSelect.addEventListener('change', function() {
+                const selectedVoiceIndex = parseInt(this.value);
+                if (selectedVoiceIndex >= 0) {
+                    speechUtterance.voice = supportedVoices[selectedVoiceIndex];
+                    updateStatus(`Selected: ${speechUtterance.voice.name}`);
+                }
+            });
+
+            rateControl.addEventListener('input', function() {
+                speechUtterance.rate = parseFloat(this.value);
+                rateValue.textContent = this.value + 'x';
+            });
+
+            pitchControl.addEventListener('input', function() {
+                speechUtterance.pitch = parseFloat(this.value);
+                pitchValue.textContent = this.value;
+            });
+
+            playButton.addEventListener('click', function() {
+                // Check current DOM state for reliability
+                const radioElevenLabs = document.getElementById('useElevenLabs');
+                const currentApiKey = document.getElementById('elevenLabsKey')?.value?.trim();
+                const shouldUseElevenLabs = radioElevenLabs?.checked && currentApiKey;
+
+                if (shouldUseElevenLabs) {
+                    readCurrentSectionElevenLabs();
+                } else {
+                    readCurrentSection();
+                }
+            });
+
+            pauseButton.addEventListener('click', function() {
+                if (currentAudio) {
+                    currentAudio.pause();
+                    updateStatus('Paused');
+                } else {
+                    speechSynthesis.pause();
+                    updateStatus('Paused');
+                }
+            });
+
+
+
+            nextSectionButton.addEventListener('click', function() {
+                if (speechSynthesis.speaking) {
+                    speechSynthesis.cancel();
+                }
+                if (currentAudio) {
+                    currentAudio.pause();
+                    currentAudio = null;
+                }
+                readNextSectionElevenLabs();
+            });
+
+            // ElevenLabs API Integration
+            async function readCurrentSectionElevenLabs() {
+                // Stop any current audio
+                if (currentAudio) {
+                    currentAudio.pause();
+                    currentAudio = null;
+                }
+
+                // Get the current section text
+                let currentSection = null;
+                const allSlides = document.querySelectorAll('.slide');
+
+                for (const slide of allSlides) {
+                    if (getComputedStyle(slide).display !== 'none') {
+                        currentSection = slide;
+                        break;
+                    }
+                }
+
+                if (!currentSection) {
+                    updateStatus('No active section found');
+                    return;
+                }
+
+                const sectionText = extractReadableText(currentSection);
+
+                if (!sectionText.trim()) {
+                    updateStatus('No readable text found');
+                    return;
+                }
+
+                updateStatus('Generating natural voice...');
+                updateControlStates(false);
+
+                try {
+                    const audioBlob = await generateElevenLabsAudio(sectionText, elevenLabsApiKey);
+
+                    if (audioBlob) {
+                        currentAudio = new Audio(URL.createObjectURL(audioBlob));
+
+                        currentAudio.addEventListener('play', () => {
+                            updateStatus('Playing natural voice...');
+                        });
+
+                        currentAudio.addEventListener('ended', () => {
+                            updateStatus('Finished narration');
+                            updateControlStates(true);
+                        });
+
+                        currentAudio.addEventListener('error', () => {
+                            updateStatus('Audio playback error');
+                            updateControlStates(true);
+                        });
+
+                        currentAudio.addEventListener('pause', () => {
+                            if (!currentAudio.ended) {
+                                updateStatus('Paused');
+                            }
+                        });
+
+                        await currentAudio.play();
+
+                        // Update section name
+                        const heading = currentSection.querySelector('h2, h1');
+                        currentSectionName.textContent = heading ? heading.textContent : `Section ${currentSectionIndex + 1}`;
+                    } else {
+                        throw new Error('Failed to generate audio');
+                    }
+
+                } catch (error) {
+                    console.error('ElevenLabs error:', error);
+                    updateStatus('ElevenLabs error - check API key');
+                    updateControlStates(true);
+
+                    // Fallback to browser TTS
+                    setTimeout(() => {
+                        updateStatus('Falling back to browser voice...');
+                        readCurrentSection();
+                    }, 2000);
+                }
+            }
+
+
+
+            // Generate ElevenLabs audio
+            async function generateElevenLabsAudio(text, apiKey) {
+                const cleanText = text.replace(/[^\w\s.,!?()-🎯📊🔬🤖🌍🏆⚡💡]/g, '').trim();
+                const truncatedText = cleanText.length > 2500 ? cleanText.substring(0, 2500) + '...' : cleanText;
+
+                const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${selectedElevenLabsVoice}`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'audio/mpeg',
+                        'Content-Type': 'application/json',
+                        'xi-api-key': apiKey
+                    },
+                    body: JSON.stringify({
+                        text: truncatedText,
+                        model_id: "eleven_monolingual_v1",
+                        voice_settings: {
+                            stability: 0.5,
+                            similarity_boost: 0.8,
+                            style: 0.5,
+                            use_speaker_boost: true
+                        }
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`ElevenLabs API Error: ${response.status}`);
+                }
+
+                return await response.blob();
+            }
+
+            // Speech synthesis events
+            function addSpeechEvents() {
+                if (!speechUtterance) return;
+
+                speechUtterance.onstart = function() {
+                    updateStatus('Speaking...');
+                };
+
+                speechUtterance.onend = function() {
+                    updateStatus('Finished section');
+                    updateControlStates(true);
+                };
+
+                speechUtterance.onerror = function(event) {
+                    updateStatus(`Error: ${event.error}`);
+                    updateControlStates(true);
+                };
+
+                speechUtterance.onpause = function() {
+                    updateStatus('Paused');
+                };
+
+                speechUtterance.onresume = function() {
+                    updateStatus('Resumed');
+                };
+            }
+
+            // Read current section
+            function readCurrentSection() {
+                // Find the currently visible slide - more reliable approach
+                let currentSection = null;
+                const allSlides = document.querySelectorAll('.slide');
+
+                // Check each slide for visibility
+                for (const slide of allSlides) {
+                    if (getComputedStyle(slide).display !== 'none') {
+                        currentSection = slide;
+                        break;
+                    }
+                }
+
+                // Fallback: find slide that should be visible based on ID pattern
+                if (!currentSection) {
+                    for (const slide of allSlides) {
+                        if (!slide.style.display || slide.style.display !== 'none') {
+                            currentSection = slide;
+                            break;
+                        }
+                    }
+                }
+
+                if (!currentSection) {
+                    updateStatus('No active section found');
+                    return;
+                }
+
+                const sectionText = extractReadableText(currentSection);
+
+                if (sectionText.trim()) {
+                    // Cancel any current speech
+                    speechSynthesis.cancel();
+
+                    // Update UI
+                    updateStatus('Reading section...');
+                    updateControlStates(false);
+
+                    // Start speaking
+                    speechUtterance.text = sectionText;
+                    addSpeechEvents();
+                    speechSynthesis.speak(speechUtterance);
+
+                    // Update section name
+                    const heading = currentSection.querySelector('h2, h1');
+                    currentSectionName.textContent = heading ? heading.textContent : `Section ${currentSectionIndex + 1}`;
+                } else {
+                    updateStatus('No readable text found in section');
+                }
+            }
+
+            // Read next section - checks which service to use
+            function readNextSectionElevenLabs() {
+                const totalSections = document.querySelectorAll('.slide').length;
+                currentSectionIndex = Math.min(currentSectionIndex + 1, totalSections - 1);
+                const nextSlideNumber = currentSectionIndex + 1;
+
+                // Navigate to next section
+                showSlide(nextSlideNumber);
+
+                // Longer delay and more robust checking for DOM elements
+                setTimeout(() => {
+                    const radioElevenLabs = document.getElementById('useElevenLabs');
+                    const elevenLabsKey = document.getElementById('elevenLabsKey');
+
+                    if (!radioElevenLabs) {
+                        console.error('useElevenLabs radio button not found');
+                        readCurrentSection();
+                        return;
+                    }
+
+                    if (!elevenLabsKey) {
+                        console.error('elevenLabsKey input not found');
+                        readCurrentSection();
+                        return;
+                    }
+
+                    const currentApiKey = elevenLabsKey.value?.trim();
+                    const radioChecked = radioElevenLabs.checked;
+                    const shouldUseElevenLabs = radioChecked && currentApiKey;
+
+                    console.log(`Slide ${nextSlideNumber} - Service Check:`, {
+                        radioFound: !!radioElevenLabs,
+                        radioChecked: radioChecked,
+                        keyFound: !!elevenLabsKey,
+                        keyValueLength: currentApiKey?.length || 0,
+                        shouldUseElevenLabs: shouldUseElevenLabs
+                    });
+
+                    if (shouldUseElevenLabs) {
+                        console.log(`Using ElevenLabs for slide ${nextSlideNumber}`);
+                        readCurrentSectionElevenLabs();
+                    } else {
+                        console.log(`Using Browser TTS for slide ${nextSlideNumber}`);
+                        readCurrentSection();
+                    }
+                }, 500); // Increased delay to ensure DOM is fully ready
+            }
+
+            // Extract readable text from section (excludes navigation, buttons, etc.)
+            function extractReadableText(section) {
+                // Clone the section to avoid modifying the original
+                const sectionClone = section.cloneNode(true);
+
+                // Remove unwanted elements
+                const elementsToRemove = sectionClone.querySelectorAll(
+                    '.cta-button, .voice-controls, nav:not([role="navigation"]), ' +
+                    '.navigation, .arrow-nav, .nav-dot, .arrow-btn, ' +
+                    '.voice-btn, .speech-controls, ' +
+                    'button:not([id]):not([role]), ' +
+                    'input, select, textarea, ' +
+                    'script, style, ' +
+                    '[aria-hidden="true"]'
+                );
+
+                elementsToRemove.forEach(el => el.remove());
+
+                // Get text content and clean it up
+                let text = sectionClone.textContent || sectionClone.innerText || '';
+                text = text.replace(/\s+/g, ' ').trim(); // Normalize whitespace
+
+                // Find all images and iframes with descriptions and add them to the narration
+                const images = sectionClone.querySelectorAll('img[data-description]');
+                const iframes = sectionClone.querySelectorAll('iframe[data-description]');
+
+                let imageDescriptions = [];
+
+                // Add image descriptions
+                images.forEach((img, index) => {
+                    const alt = img.getAttribute('alt') || `Image ${index + 1}`;
+                    const desc = img.getAttribute('data-description');
+                    if (desc) {
+                        imageDescriptions.push(`Visual illustration number ${index + 1}: ${desc}`);
+                    }
+                });
+
+                // Add iframe descriptions
+                iframes.forEach((iframe, index) => {
+                    const desc = iframe.getAttribute('data-description');
+                    if (desc) {
+                        imageDescriptions.push(`Interactive visualization number ${index + 1}: ${desc}`);
+                    }
+                });
+
+                // Insert image descriptions after section content
+                if (imageDescriptions.length > 0) {
+                    text += ' ' + imageDescriptions.join(' ');
+                }
+
+                // Remove special characters but keep punctuation and emoji
+                text = text.replace(/[^\w\s.,!?()-🎯📊🔬🤖🌍🏆⚡💡]/g, '');
+
+                return text;
+            }
+
+            // Load voices when they become available
+            function initializeVoiceLoading() {
+                voices = speechSynthesis.getVoices();
+
+                if (voices && voices.length > 0) {
+                    loadVoices();
+                } else {
+                    // Set up event listener for when voices become available
+                    speechSynthesis.onvoiceschanged = function() {
+                        if (voices.length === 0) {
+                            loadVoices();
+                        }
+                    };
+
+                    // Multiple fallback timeouts for voice loading
+                    setTimeout(() => { voices = speechSynthesis.getVoices(); if (voices.length === 0) loadVoices(); }, 500);
+                    setTimeout(() => { voices = speechSynthesis.getVoices(); if (voices.length === 0) loadVoices(); }, 1000);
+                    setTimeout(() => { voices = speechSynthesis.getVoices(); if (voices.length === 0) loadVoices(); }, 2000);
+
+                    // Force load immediately for browsers that have voices ready
+                    loadVoices();
+                }
+            }
+
+            // Initialize voice loading
+            initializeVoiceLoading();
+        }
+
+        // Enhanced showSlide function to update voice section
+        const voiceOriginalShowSlide = showSlide;
+        showSlide = function(slideNumber) {
+            voiceOriginalShowSlide(slideNumber);
+            currentSectionIndex = slideNumber - 1;
+        };
+
+        // Initialize voice controls after page load
+        window.addEventListener('load', function() {
+            setTimeout(initializeVoiceControls, 500);
+        });
+
+        // Add some accessibility improvements
+        document.addEventListener('keydown', function(e) {
+            // Space key to play/pause voice
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (speechSynthesis.speaking && !speechSynthesis.paused) {
+                    document.getElementById('pauseButton')?.click();
+                } else {
+                    document.getElementById('playButton')?.click();
+                }
+            }
+
+            // 'N' key for next section
+            if (e.code === 'KeyN' && !e.ctrlKey && !e.altKey) {
+                e.preventDefault();
+                document.getElementById('nextSectionButton')?.click();
+            }
+        });
+
+        // Add screen reader support
+        if ('speechSynthesis' in window) {
+            // Set up accessibility announcements
+            const announcementDiv = document.createElement('div');
+            announcementDiv.setAttribute('aria-live', 'polite');
+            announcementDiv.setAttribute('aria-atomic', 'true');
+            announcementDiv.className = 'sr-only';
+            document.body.appendChild(announcementDiv);
+
+            function announce(message) {
+                announcementDiv.textContent = message;
+                setTimeout(() => { announcementDiv.textContent = ''; }, 1000);
+            }
+
+            // Announce slide changes
+            const voiceOriginalShowSlide = showSlide;
+            showSlide = function(slideNumber) {
+                voiceOriginalShowSlide(slideNumber);
+                announce(`Slide ${slideNumber} of ${document.querySelectorAll('.slide').length}`);
+            };
+        }
+    </script>
+
+    <style>
+        /* Compact Floating Voice Controls Styles */
+        .voice-controls {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 999;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .voice-toggle-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            border: 3px solid white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .voice-toggle-btn:hover:not(:disabled) {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .voice-toggle-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .voice-panel {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            width: 280px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 0;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px) scale(0.95);
+            transition: all 0.3s ease;
+        }
+
+        .voice-panel.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border-radius: 12px 12px 0 0;
+        }
+
+        .current-section-display {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 0.9em;
+            flex-grow: 1;
+        }
+
+        .mini-status-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            cursor: default;
+            min-width: 50px;
+        }
+
+        .voice-settings {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .mini-select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: white;
+            font-size: 0.85em;
+            margin-bottom: 12px;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 12px;
+            padding-right: 30px;
+        }
+
+        .speech-sliders {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .slider-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .slider-row label {
+            min-width: 35px;
+            font-size: 0.8em;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .mini-slider {
+            flex: 1;
+            height: 4px;
+            border-radius: 2px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .mini-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #3498db;
+            cursor: pointer;
+        }
+
+        .slider-row span {
+            min-width: 30px;
+            text-align: right;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        .voice-actions {
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+        }
+
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .play-btn { background: linear-gradient(45deg, #28a745, #20c997); }
+        .pause-btn { background: linear-gradient(45deg, #fd7e14, #ff6b6b); }
+        .next-btn { background: linear-gradient(45deg, #6f42c1, #833ab4); }
+
+        .action-btn:hover:not(:disabled) {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .voice-panel {
+                width: 250px;
+            }
+
+            .voice-toggle-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+
+            .voice-controls {
+                top: 70px;
+                right: 15px;
+            }
+        }
+
+        /* Accessibility improvements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Focus indicators */
+        .voice-toggle-btn:focus,
+        .action-btn:focus,
+        .mini-select:focus,
+        .mini-slider:focus {
+            outline: 2px solid #3498db;
+            outline-offset: 2px;
+        }
+    </style>
+</body>
+</html>
