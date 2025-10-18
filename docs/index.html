@@ -8,6 +8,9 @@
     <meta name="author" content="AI for Sustainable Cities Project">
     <meta name="keywords" content="machine learning, sustainable cities, SDG 11, urban planning, clustering, AI presentation, speech narration">
     <meta name="robots" content="index, follow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -428,6 +431,321 @@
                 min-width: 60px;
             }
         }
+
+        /* Enhanced Typography and Smooth Animations */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 500;
+        }
+
+        p, li {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-value {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .metric-label {
+            font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+            font-weight: 500;
+        }
+
+        .ai-badge, .sdg-badge {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+            border-radius: 25px;
+        }
+
+        .cta-button {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            border-radius: 30px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .slide {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1),
+                       0 5px 15px rgba(0, 0, 0, 0.05);
+            margin: 30px 0;
+            padding: clamp(30px, 8vw, 50px);
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            animation: slideInSmooth 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes slideInSmooth {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .image-container img {
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.15));
+        }
+
+        .image-container img:hover {
+            transform: scale(1.02);
+            filter: drop-shadow(0 15px 40px rgba(0, 0, 0, 0.2));
+        }
+
+        .cluster-card, .metric-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.9) 100%);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .cluster-card:hover, .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .tech-item {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(52, 152, 219, 0.05) 100%);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.15) 0%, rgba(52, 152, 219, 0.1) 100%);
+            transform: translateY(-1px);
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 40%, #dda0dd 100%);
+            padding: clamp(20px, 4vw, 30px);
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .navigation, .arrow-nav {
+            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-dot {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .nav-dot:hover {
+            transform: scale(1.6);
+        }
+
+        .nav-dot.active {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            transform: scale(1.5);
+            box-shadow: 0 0 15px rgba(52, 152, 219, 0.6);
+        }
+
+        .arrow-btn, .nav-button {
+            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .arrow-btn:hover:not(:disabled) {
+            background: rgba(52, 152, 219, 0.3);
+            transform: translateY(-2px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+        }
+
+        .bottom-navigation {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Enhanced Mobile Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+
+            .container {
+                padding: clamp(10px, 5vw, 20px);
+                padding-bottom: 120px;
+            }
+
+            .slide {
+                border-radius: clamp(15px, 4vw, 20px);
+                margin: clamp(15px, 5vw, 30px) 0;
+                padding: clamp(20px, 6vw, 35px);
+                backdrop-filter: blur(15px);
+            }
+
+            .metric-card, .cluster-card {
+                border-radius: 12px;
+                margin: 10px 0;
+                padding: 15px;
+            }
+
+            .tech-specs {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .tech-item {
+                padding: 12px;
+            }
+
+            .cluster-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .image-container img {
+                max-width: 100%;
+                border-radius: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                font-size: 13px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .slide {
+                margin: 10px 0;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            .metric-value {
+                font-size: 2rem;
+            }
+
+            .cta-button {
+                padding: 10px 20px;
+                font-size: 0.95rem;
+            }
+
+            .bottom-navigation {
+                padding: 15px;
+            }
+
+            .nav-button {
+                padding: 8px 12px;
+                font-size: 0.75rem;
+                min-width: 50px;
+            }
+        }
+
+        /* Loading animation for smoother experience */
+        .slide:nth-child(2) { animation-delay: 0.1s; }
+        .slide:nth-child(3) { animation-delay: 0.2s; }
+        .slide:nth-child(4) { animation-delay: 0.3s; }
+        .slide:nth-child(5) { animation-delay: 0.4s; }
+        .slide:nth-child(6) { animation-delay: 0.5s; }
+        .slide:nth-child(7) { animation-delay: 0.6s; }
+        .slide:nth-child(8) { animation-delay: 0.7s; }
+        .slide:nth-child(9) { animation-delay: 0.8s; }
+        .slide:nth-child(10) { animation-delay: 0.9s; }
+
+        /* Safari compatibility */
+        @supports not (backdrop-filter: blur(15px)) {
+            .slide {
+                background: rgba(255, 255, 255, 0.95);
+            }
+
+            .bottom-navigation {
+                background: rgba(255, 255, 255, 0.95);
+            }
+
+            .navigation, .arrow-nav, .arrow-btn, .nav-button {
+                background: rgba(255, 255, 255, 0.9);
+            }
+        }
+
+        /* Native webkit support for older browsers */
+        @-webkit-keyframes slideInSmooth {
+            to {
+                opacity: 1;
+                -webkit-transform: translateY(0) scale(1);
+            }
+        }
     </style>
 </head>
 <body>
@@ -512,7 +830,7 @@
                 </div>
 
                 <div class="image-container">
-                    <img src="../figures/pca_clusters.png" alt="PCA Clustering Visualization showing three distinct city clusters" style="max-width: 800px;" data-description="This PCA scatter plot demonstrates the K-means clustering results, showing three distinct clusters of cities based on urban development patterns. The principal components capture 72% variance, revealing clear separation between different city archetypes: rapid growth cities, stable urban centers, and emerging cities. The clustering achieved a silhouette score of 0.72, indicating excellent separation quality.">
+                    <img src="pca_clusters.png" alt="PCA Clustering Visualization showing three distinct city clusters" style="max-width: 800px;" data-description="This PCA scatter plot demonstrates the K-means clustering results, showing three distinct clusters of cities based on urban development patterns. The principal components capture 72% variance, revealing clear separation between different city archetypes: rapid growth cities, stable urban centers, and emerging cities. The clustering achieved a silhouette score of 0.72, indicating excellent separation quality.">
                     <div class="image-caption">Figure: K-Means clustering results visualized using PCA dimensionality reduction</div>
                 </div>
             </div>
@@ -543,7 +861,7 @@
                 </div>
 
                 <div class="image-container">
-                    <img src="../figures/feature_means_by_cluster.png" alt="Bar chart comparing average feature values across three city clusters" style="max-width: 900px;" data-description="This bar chart displays the mean values for each urban development feature across the three identified clusters. Cluster 0 shows the highest urbanization rates and population growth, representing rapidly expanding cities that may require focused infrastructure investment. Cluster 1 represents stable urban centers with moderate development metrics, while Cluster 2 shows emerging cities with lower development indicators that may need different support strategies. The clear differentiation in feature means validates the clustering quality and provides actionable urban planning guidance.">
+                    <img src="feature_means_by_cluster.png" alt="Bar chart comparing average feature values across three city clusters" style="max-width: 900px;" data-description="This bar chart displays the mean values for each urban development feature across the three identified clusters. Cluster 0 shows the highest urbanization rates and population growth, representing rapidly expanding cities that may require focused infrastructure investment. Cluster 1 represents stable urban centers with moderate development metrics, while Cluster 2 shows emerging cities with lower development indicators that may need different support strategies. The clear differentiation in feature means validates the clustering quality and provides actionable urban planning guidance.">
                     <div class="image-caption">Figure: Feature means comparison across identified clusters</div>
                 </div>
             </div>
@@ -555,17 +873,17 @@
                 <h2>📊 Visual Analysis</h2>
 
                 <div class="image-container">
-                    <img src="../figures/histograms.png" alt="Grid of histograms showing frequency distributions of urban development features" style="max-width: 1000px;" data-description="This histogram grid shows the frequency distributions for each urban development feature used in the analysis. Each histogram reveals the range and concentration of values across all cities, helping identify normal distributions, skewness, and outliers. Key urban indicators like population growth rates, urbanization levels, and infrastructure metrics are visualized to understand the spread and characteristics of the data before clustering.">
+                    <img src="histograms.png" alt="Grid of histograms showing frequency distributions of urban development features" style="max-width: 1000px;" data-description="This histogram grid shows the frequency distributions for each urban development feature used in the analysis. Each histogram reveals the range and concentration of values across all cities, helping identify normal distributions, skewness, and outliers. Key urban indicators like population growth rates, urbanization levels, and infrastructure metrics are visualized to understand the spread and characteristics of the data before clustering.">
                     <div class="image-caption">Figure: Distribution of key urban development indicators</div>
                 </div>
 
                 <div class="image-container">
-                    <img src="../figures/correlation_heatmap.png" alt="Color-coded correlation matrix heatmap of feature relationships" style="max-width: 800px;" data-description="This correlation heatmap displays the pairwise relationships between all urban development features, using color intensity to show correlation strength from -1 to +1. Lighter colors indicate positive correlations while darker colors show negative correlations. Understanding these relationships helps validate feature selection and reveals redundant variables that could affect clustering performance. Strong correlations might necessitate feature reduction techniques like PCA.">
+                    <img src="correlation_heatmap.png" alt="Color-coded correlation matrix heatmap of feature relationships" style="max-width: 800px;" data-description="This correlation heatmap displays the pairwise relationships between all urban development features, using color intensity to show correlation strength from -1 to +1. Lighter colors indicate positive correlations while darker colors show negative correlations. Understanding these relationships helps validate feature selection and reveals redundant variables that could affect clustering performance. Strong correlations might necessitate feature reduction techniques like PCA.">
                     <div class="image-caption">Figure: Correlation analysis between urban development indicators</div>
                 </div>
 
                 <div class="image-container">
-                    <img src="../figures/scatter_matrix.png" alt="Grid of scatter plots showing bivariate relationships between features" style="max-width: 900px;" data-description="This scatter matrix provides a comprehensive view of bivariate relationships between every pair of urban development features. Each off-diagonal plot shows how two variables relate, revealing linear patterns, clusters, or outliers that inform the machine learning approach. The diagonal elements show the distribution of each individual feature. This visualization is crucial for understanding multicollinearity and feature interactions that impact clustering algorithms.">
+                    <img src="scatter_matrix.png" alt="Grid of scatter plots showing bivariate relationships between features" style="max-width: 900px;" data-description="This scatter matrix provides a comprehensive view of bivariate relationships between every pair of urban development features. Each off-diagonal plot shows how two variables relate, revealing linear patterns, clusters, or outliers that inform the machine learning approach. The diagonal elements show the distribution of each individual feature. This visualization is crucial for understanding multicollinearity and feature interactions that impact clustering algorithms.">
                     <div class="image-caption">Figure: Scatter matrix showing relationships between key features</div>
                 </div>
             </div>
@@ -582,7 +900,7 @@
 
                 <div class="image-container">
                     <div class="video-container">
-                        <iframe src="../figures/plotly_pca_clusters.html" frameborder="0" allowfullscreen data-description="This interactive 3D visualization provides a rotatable view of all cities plotted in reduced-dimensional space using three principal components. Each dot represents a city colored by its cluster assignment, allowing exploration of geographic relationships between different urban archetypes. Hovering over points reveals specific city names, population figures, and cluster details, enabling detailed geographic analysis and pattern recognition across continents and development stages."></iframe>
+                        <iframe src="plotly_pca_clusters.html" frameborder="0" allowfullscreen data-description="This interactive 3D visualization provides a rotatable view of all cities plotted in reduced-dimensional space using three principal components. Each dot represents a city colored by its cluster assignment, allowing exploration of geographic relationships between different urban archetypes. Hovering over points reveals specific city names, population figures, and cluster details, enabling detailed geographic analysis and pattern recognition across continents and development stages."></iframe>
                     </div>
                     <div class="image-caption">Interactive: 3D PCA clustering visualization with hover details</div>
                 </div>
