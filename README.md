@@ -1,5 +1,59 @@
 # AI for Sustainable Cities – SDG 11
 
+## 🎯 Interactive Presentation
+
+**🎭 [View the Interactive Presentation](https://plp-academy.github.io/ai_se_week2_assignment_machine_learning/)**
+
+This project includes a **fully interactive HTML presentation** with speech narration capabilities. The presentation is hosted on GitHub Pages and can be accessed directly through your browser.
+
+### How to Use the Presentation
+
+#### 🔍 **Browser TTS Narration (Free & Instant)**
+1. Open the [GitHub Pages link](https://plp-academy.github.io/ai_se_week2_assignment_machine_learning/)
+2. Click the **"🎵" voice button** in the top-right corner
+3. Select **"🗣️ Browser TTS"** from the voice service options
+4. Click the **▶️ Play button** to start narration
+5. Adjust **speed and pitch** sliders if desired
+6. Use **▶️ Play** and **⏭️ Next** buttons to navigate through slides
+7. **Keyboard shortcuts**: Space to play/pause, Arrow keys to navigate
+
+*Works immediately in Chrome, Firefox, Safari, and Edge.*
+
+#### 🔊 **ElevenLabs AI Narration (Premium Natural Voice)**
+1. Visit [elevenlabs.io](https://elevenlabs.io) and create a free account (10,000 characters/month)
+2. Get your **API key** from ElevenLabs dashboard
+3. Open the [presentation](https://plp-academy.github.io/ai_se_week2_assignment_machine_learning/)
+4. Click **"🎵" voice button** in the top-right corner
+5. Select **"🎯 ElevenLabs AI"** from voice service options
+6. **Paste your API key** in the input field
+7. Click **▶️ Play button** to hear professional AI narration
+8. Use automatic **⏭️ Next** feature to advance slides smoothly
+
+*Premium natural voice with lifelike intonation and expression.*
+
+### 🔧 Local Presentation Setup
+To run the presentation locally:
+```bash
+# Navigate to docs directory
+cd docs/
+
+# Open in your default browser
+start index.html    # Windows CMD
+open index.html     # macOS
+xdg-open index.html # Linux
+```
+
+### 🎨 Presentation Features
+- **10 Interactive Slides** with smooth animations
+- **Dual Voice Services** (Browser TTS + ElevenLabs AI)
+- **Responsive Design** works on all devices
+- **Keyboard Navigation** and touch controls
+- **Progress Tracking** with visual progress bar
+- **Image Descriptions** for accessible narration
+- **Professional Typography** (Google Fonts: Inter & Poppins)
+
+---
+
 ## Overview
 This project demonstrates how machine learning can advance the UN Sustainable Development Goals, specifically **SDG 11: Sustainable Cities and Communities**. Using K-Means clustering on comprehensive data from all three UN DESA sources (Urban Agglomeration and Capital Cities, Urban Population estimates, and Locations data), it groups cities based on population and sustainability metrics to support informed policy design and urban planning.
 
